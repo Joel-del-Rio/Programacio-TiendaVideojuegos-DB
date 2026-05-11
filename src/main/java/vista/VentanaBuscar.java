@@ -47,7 +47,7 @@ public class VentanaBuscar extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        buscar.setText("BUSCAR");
+        buscar.setText("READ");
         buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscarActionPerformed(evt);
@@ -61,9 +61,9 @@ public class VentanaBuscar extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(lista);
 
-        jLabel1.setText("CODIGO");
+        jLabel1.setText("CODE");
 
-        jLabel2.setText("LISTA");
+        jLabel2.setText("READ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,7 +108,7 @@ public class VentanaBuscar extends javax.swing.JDialog {
         String cod = codigo.getText();
         
         if(!cod.isEmpty()){
-            Videojuego v = VideojuegosControlador.buscarPorCodigo(cod);
+            Videojuego v = VideojuegosControlador.buscarPorCodigo(Integer.parseInt(cod));
             lista.setSelectedValue(cod, true);
             JOptionPane.showMessageDialog(this, v.toString());
         }else{

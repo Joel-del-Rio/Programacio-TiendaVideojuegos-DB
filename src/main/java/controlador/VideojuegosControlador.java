@@ -4,11 +4,14 @@
  */
 package controlador;
 
-import java.util.ArrayList;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+import modelo.DataBase;
 import modelo.Videojuego;
-import persistencia.FicheroVideojuegos;
 
 /**
  *
@@ -16,85 +19,97 @@ import persistencia.FicheroVideojuegos;
  */
 public class VideojuegosControlador {
 
-    private static ArrayList<Videojuego> inventario = new ArrayList<Videojuego>();
+    private static DataBase db = new DataBase();
 
-    public static void guardar() {
+    private static Connection con = db.getCon();
 
-        FicheroVideojuegos.guardar(inventario);
-
-    }
-
-    public static void cargar() {
-
-        inventario = FicheroVideojuegos.cargar();
-
-    }
-
+    //CRUD
+    //CREATE
     public static void anadir(Videojuego v) {
 
-        if (comprove(v) == true) {
-            inventario.add(v);
-            JOptionPane.showMessageDialog(null, "Videojuego anadido correctamente");
-        } else {
-            JOptionPane.showMessageDialog(null, "Videojuego ya registrado");
+        String query = "insert into inventario(codigo, titulo, desarrollador, precio) values(?,?,?,?)";
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, v.getCodigo());
+            ps.setString(2, v.getTitulo());
+            ps.setString(3, v.getDesarrollador());
+            ps.setDouble(4, v.getPrecio());
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Videojuego añadido correctamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al añadir el videojuego");
         }
 
     }
 
-    public static Videojuego buscarPorCodigo(String codigo) {
-
+    //READ
+    public static Videojuego buscarPorCodigo(int codigo) {
+        String query = "select * from inventario where codigo = ?";
         Videojuego v = null;
-        for (Videojuego vi : inventario) {
-            if(vi.getCodigo().equalsIgnoreCase(codigo)){
-                v = vi;
-                break;
+
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, codigo);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                v = new Videojuego(
+                        rs.getInt("codigo"),
+                        rs.getString("titulo"),
+                        rs.getString("desarrollador"),
+                        rs.getDouble("precio")
+                );
             }
-        }
-        if (v == null) {
-            JOptionPane.showMessageDialog(null, "No existe este videojuego");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return v;
     }
-    
-    public static void eliminarPorCodigo(String codigo) {
-    
-        for(Videojuego v : inventario){
-            if(v.getCodigo().equalsIgnoreCase(codigo)){
-                inventario.remove(v);  
-                JOptionPane.showMessageDialog(null, "Videojuego eliminado correctamente");
-                break;
+
+    //UPDATE
+    public static void update(int codigo, double precio) {
+        String query = "update inventario set precio = ? where codigo = ?";
+        
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setDouble(1, precio);
+            ps.setInt(2, codigo);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Videojuego actualizado correctamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //DELETE
+    public static void eliminarPorCodigo(int codigo) {
+        String sql = "delete from inventario where codigo = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, codigo);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Videojuego eliminado correctamente");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static DefaultListModel<String> lista() {
+
+        String query = "select codigo from inventario";
+        DefaultListModel<String> modelo = new DefaultListModel<>();
+
+        try (PreparedStatement ps = con.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                modelo.addElement(rs.getString("codigo"));
             }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    }
-    
-    public static ArrayList<Videojuego> listarVideojuegos(){
-    
-        return inventario;
-    
-    }
 
-
-    public static boolean comprove(Videojuego v) {
-
-        boolean comprove = true;
-
-        for (Videojuego vi : inventario) {
-
-            if (vi.getCodigo().equalsIgnoreCase(v.getCodigo())) {
-                comprove = false;
-                break;
-            }
-        }
-        return comprove;
-    }
-    
-    public static DefaultListModel<String> lista(){
-    
-        DefaultListModel<String> model = new DefaultListModel<String>();
-        for(Videojuego v : inventario){
-            model.addElement(v.getCodigo());
-        }
-    return model;    
+        return modelo;
     }
 
 }

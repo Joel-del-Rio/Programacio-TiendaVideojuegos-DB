@@ -46,22 +46,22 @@ public class VentanaAnadir extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("CODIGO");
+        jLabel1.setText("CODE");
 
-        jLabel2.setText("TITULO");
+        jLabel2.setText("TITLE");
 
-        jLabel3.setText("DESARROLLADOR");
+        jLabel3.setText("DEVELOPER");
 
-        jLabel4.setText("PRECIO");
+        jLabel4.setText("PRICE");
 
-        jButton1.setText("AÑADIR");
+        jButton1.setText("CREATE");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("AÑADIR");
+        jLabel5.setText("CREATE");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,16 +70,11 @@ public class VentanaAnadir extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addGap(59, 59, 59))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addGap(51, 51, 51))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(desarrollador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -135,7 +130,7 @@ public class VentanaAnadir extends javax.swing.JDialog {
         if ((cod.isEmpty()) | (title.isEmpty()) | (developer.isEmpty()) | (price.isEmpty())) {
             JOptionPane.showMessageDialog(this, "Rellena todos los campos");
         } else {
-            Videojuego v = new Videojuego(cod, title, developer, Double.parseDouble(price));
+            Videojuego v = new Videojuego(Integer.parseInt(cod), title, developer, Double.parseDouble(price));
             VideojuegosControlador.anadir(v);
         }
 

@@ -10,23 +10,23 @@ package modelo;
  */
 public class Videojuego {
     
-    private String codigo;
+    private int codigo;
     private String titulo;
     private String desarrollador;
     private double precio;
 
-    public Videojuego(String codigo, String titulo, String desarrollador, double precio) {
+    public Videojuego(int codigo, String titulo, String desarrollador, double precio) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.desarrollador = desarrollador;
         this.precio = precio;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 

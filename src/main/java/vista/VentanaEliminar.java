@@ -52,16 +52,16 @@ public class VentanaEliminar extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(lista);
 
-        jLabel1.setText("SELECCIONA");
+        jLabel1.setText("SELECT ONE");
 
-        eliminar.setText("ELIMINAR");
+        eliminar.setText("DELETE");
         eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 eliminarActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("ELIMINAR");
+        jLabel2.setText("DELETE");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,7 +76,7 @@ public class VentanaEliminar extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(22, Short.MAX_VALUE))
+                        .addContainerGap(25, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -106,7 +106,7 @@ public class VentanaEliminar extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Selecciona un videojuego");
         } else {
             String cod = lista.getSelectedValue();
-            VideojuegosControlador.eliminarPorCodigo(cod);
+            VideojuegosControlador.eliminarPorCodigo(Integer.parseInt(cod));
             lista();
         }
 

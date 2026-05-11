@@ -65,7 +65,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="buscar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="BUSCAR"/>
+        <Property name="text" type="java.lang.String" value="READ"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buscarActionPerformed"/>
@@ -92,14 +92,14 @@
     </Container>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="CODIGO"/>
+        <Property name="text" type="java.lang.String" value="CODE"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="codigo">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="LISTA"/>
+        <Property name="text" type="java.lang.String" value="READ"/>
       </Properties>
     </Component>
   </SubComponents>

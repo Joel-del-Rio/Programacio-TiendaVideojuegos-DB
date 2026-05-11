@@ -4,7 +4,6 @@
  */
 package main;
 
-import persistencia.FicheroVideojuegos;
 import vista.VentanaPrincipal;
 
 /**
@@ -17,16 +16,12 @@ public class main {
      * @param args the command line arguments
      */
     
-    public static FicheroVideojuegos fv = new FicheroVideojuegos();
-    
     public static VentanaPrincipal vp = new VentanaPrincipal();
     
     public static void main(String[] args) {
-       
-        fv.crear();
         
         vp.setVisible(true);
-        
+           
     }
     
 }
